@@ -9,6 +9,7 @@ import org.apache.commons.cli.ParseException;
 
 import dk.cs.aau.STLDA.loader.RDFStore;
 import dk.cs.aau.STLDA.loader.Saturater;
+import dk.cs.aau.parser.Query;
 
 public class App {
 
@@ -42,7 +43,8 @@ public class App {
 			}
 
 		    if (line.hasOption("query")) {
-		    	
+		    	Query query = new Query(line.getOptionValue("query"));
+		    	query.execute();
 			}
 
 		}
