@@ -5,16 +5,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Data {
+import dk.cs.aau.STLDA.Helper;
+
+public class DataModel {
 	private List<Tuple> data = new ArrayList<Tuple>();
 	private List<Relationship> relationships = new ArrayList<Relationship>();
-	private List<String> RDFSStatements = new ArrayList<String>();
 
-	public Data() {
-		RDFSStatements.add(trimNode("<http://www.w3.org/2000/01/rdf-schema#subclassof>"));
-		RDFSStatements.add(trimNode("<http://www.w3.org/1999/02/22-rdf-syntax-ns#subpropertyof>"));
-	}
-	
 	public void addTriple(String triple) {
 		String[] input = trimLine(triple);
 		boolean match = false;
@@ -85,23 +81,9 @@ public class Data {
 		res[2] = matchList.get(2);
 		
 		for (int i = 0; i < res.length; i++) {
-			res[i] = trimNode(res[i]);
+			res[i] = Helper.trimNode(res[i]);
 		}
 		return res;
-	}
-	
-	private String trimNode(String input)
-	{
-		String output = "";
-		output = input.replaceAll("<", "");
-		output = output.replaceAll("http://example.com/", "");
-		output = output.replaceAll("http://www.w3.org/1999/02/22-rdf-syntax-ns#", "");
-		output = output.replaceAll("http://www.w3.org/2000/01/rdf-schema#", "");
-		output = output.replaceAll("http://www.w3.org/2001/xmlschema#", "");
-		output = output.replaceAll(">", "");
-		output = output.replaceAll("-", "");
-		
-		return output;
 	}
 	
 	@Override
