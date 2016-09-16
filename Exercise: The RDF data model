@@ -1,0 +1,137 @@
+#1 RDF modelling
+##1.1 RDF database in triple notation
+
+<http://example.com/mid-term> <http://www.w3.org/2000/01/rdf-schema#subclassof> <http://example.com/unit> .
+<http://example.com/regular-exam> <http://www.w3.org/2000/01/rdf-schema#subclassof> <http://example.com/unit> .
+<http://example.com/hasresponsiable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#subpropertyof> <http://example.com/hasteacher> .
+
+<http://example.com/hasresponsiable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#domain> <http://example.com/unit> .
+<http://example.com/hasresponsiable> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#teacher> .
+<http://example.com/hasteacher> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/hasteacher> <http://www.w3.org/2000/01/rdf-schema#range> <http://example.com/teacher> .
+<http://example.com/name> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/name> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#string> .
+
+<http://example.com/finalexamgrade> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/finalexamgrade> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#integer> .
+<http://example.com/averagemidterm> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/averagemidterm> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#integer> .
+<http://example.com/hasprerequsite> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/hasprerequsite> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#unit> .
+
+<http://example.com/semanticweb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/mid-term> .
+<http://example.com/semanticweb> <http://example.com/name> "semantic web" .
+<http://example.com/semanticweb> <http://example.com/hasresponsiable> <http://example.com/alice> .
+<http://example.com/semanticweb> <http://example.com/hasprerequsite> <http://example.com/xml> .
+<http://example.com/semanticweb> <http://example.com/averagemidterm> 13 .
+<http://example.com/semanticweb> <http://example.com/finalexamgrade> 12 .
+
+<http://example.com/xml> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/unit> .
+<http://example.com/xml> <http://example.com/name> "xml and internet programming" .
+<http://example.com/xml> <http://example.com/hasresponsiable> <http://example.com/carole> .
+<http://example.com/xml> <http://example.com/hasteacher> <http://example.com/bob> .
+<http://example.com/xml> <http://example.com/averagemidterm> 16 .
+<http://example.com/xml> <http://example.com/finalexamgrade> 14 .
+
+<http://example.com/alice> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/teacher> .
+<http://example.com/carole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/teacher> .
+<http://example.com/bob> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/teacher> .
+
+##2. rdf reasoning
+#2.1 saturation
+Three triples have been infered.
+
+<http://example.com/mid-term> <http://www.w3.org/2000/01/rdf-schema#subclassof> <http://example.com/unit> .
+<http://example.com/regular-exam> <http://www.w3.org/2000/01/rdf-schema#subclassof> <http://example.com/unit> .
+<http://example.com/hasresponsiable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#subpropertyof> <http://example.com/hasteacher> .
+
+<http://example.com/hasresponsiable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#domain> <http://example.com/unit> .
+<http://example.com/hasresponsiable> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#teacher> .
+<http://example.com/hasteacher> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/hasteacher> <http://www.w3.org/2000/01/rdf-schema#range> <http://example.com/teacher> .
+<http://example.com/name> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/name> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#string> .
+
+<http://example.com/finalexamgrade> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/finalexamgrade> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#integer> .
+<http://example.com/averagemidterm> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/averagemidterm> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#integer> .
+<http://example.com/hasprerequsite> <http://www.w3.org/2000/01/rdf-schema#domain> <http://example.com/unit> .
+<http://example.com/hasprerequsite> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#unit> .
+
+<http://example.com/semanticweb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/unit> .
+<http://example.com/semanticweb> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/mid-term> .
+<http://example.com/semanticweb> <http://example.com/name> "semantic web" .
+<http://example.com/semanticweb> <http://example.com/hasresponsiable> <http://example.com/alice> .
+<http://example.com/semanticweb> <http://example.com/hasteacher> <http://example.com/alice> .
+<http://example.com/semanticweb> <http://example.com/hasprerequsite> <http://example.com/xml> .
+<http://example.com/semanticweb> <http://example.com/averagemidterm> 13 .
+<http://example.com/semanticweb> <http://example.com/finalexamgrade> 12 .
+
+<http://example.com/xml> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/unit> .
+<http://example.com/xml> <http://example.com/name> "xml and internet programming" .
+<http://example.com/xml> <http://example.com/hasresponsiable> <http://example.com/carole> .
+<http://example.com/xml> <http://example.com/hasteacher> <http://example.com/carole> .
+<http://example.com/xml> <http://example.com/hasteacher> <http://example.com/bob> .
+<http://example.com/xml> <http://example.com/averagemidterm> 16 .
+<http://example.com/xml> <http://example.com/finalexamgrade> 14 .
+
+<http://example.com/alice> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/teacher> .
+<http://example.com/carole> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/teacher> .
+<http://example.com/bob> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/teacher> .
+
+
+##2.2 analyses of the saturated rdf database
+Below are a list of triple patterns used to derive the answer.
+
+1) The Semantic Web coruse is a unit
+<http://example.com/mid-term> <http://www.w3.org/2000/01/rdf-schema#subclass> <http://example.com/unit> .
+
+
+2) Carole teaches "XML and Internet Programming"
+<http://example.com/hasresponsiable> <http://www.w3.org/2000/01/rdf-schema#subpropertyof> <http://example.com/hasteacher> .
+
+3) The domain/rnange typing of the property used to model that a unit has a given responsible
+<http://example.com/hasresponsiable> <http://www.w3.org/1999/02/22-rdf-syntax-ns#domain> <http://example.com/unit> .
+<http://example.com/hasresponsiable> <http://www.w3.org/2000/01/rdf-schema#range> <http://www.w3.org/2001/xmlschema#teacher> .
+
+
+#3 sparql
+Below the queries are listed:
+1)
+SELECT ?a
+WHERE {
+	?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/unit> .
+}
+
+
+2)
+ASK
+WHERE {
+	?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/mid-term> .
+}
+
+3)
+
+SELECT ?a
+WHERE {
+	?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/unit> .
+	?a <http://example.com/averagemidterm> ?mid .
+	?a <http://example.com/finalexamgrade> ?final .
+	FILTER (( 0.4 * ?mid + 0.6*?final ) >= 12) .
+}
+
+4)
+SELECT ?a ?p
+WHERE {
+	?a <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://example.com/unit> .
+	OPTIONAL { ?a <http://example.com/hasprerequsite> ?p }
+}
+
+
+5)
+SELECT ?u
+WHERE {
+	?u <http://example.com/hasresponsiable> ?person .
+  FILTER(?person = <http://example.com/alice> || <http://example.com/carole> )
+}
