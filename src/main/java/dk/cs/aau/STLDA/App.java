@@ -20,30 +20,48 @@ public class App {
 	
 		// create the Options
 		Options options = new Options();
+		
 		options.addOption("h", "help", false, "Display this message." );
+		options.addOption("u", "user", true, "neo4j username." );
+		options.addOption("p", "password", true, "neo4j password." );
 		options.addOption("l", "load", true, "load specified file, deletes the existing graph");
 		options.addOption("s", "saturate", false, "saturates the graph");
-		options.addOption("q", "query", true, "executes a query");
+		options.addOption("q", "query", true, "reads a file with a query and executes it");
 	
-		RDFStore store = new RDFStore();
+		
 		
 		try {
 		    CommandLine line = parser.parse( options, args );
-		   
+		    
 		    if (line.hasOption( "help" )) {
 		    	printHelp(null,options);
 		    	System.exit(0);
 			} 
+		    
+		    if (!line.hasOption( "user" )) {
+		    	System.out.println("missing neo4j username");
+		    	System.exit(0);
+			} 
+		    String username = line.getOptionValue("user");
+		    
+		    if (!line.hasOption( "password" )) {
+		    	System.out.println("missing neo4j password");
+		    	System.exit(0);
+			} 
+		    String password = line.getOptionValue("password");
+		    
 		    if (line.hasOption("load")) {
-		    	store.load(line.getOptionValue("load"));
+		    	RDFStore store = new RDFStore(line.getOptionValue("load"),username,password);
+		    	store.load();
 			}
+		    
 		    if (line.hasOption("saturate")) {
 		    	Saturater saturate = new Saturater();
 		    	saturate.all();
 			}
 
 		    if (line.hasOption("query")) {
-		    	Query query = new Query(line.getOptionValue("query"));
+		    	Query query = new Query(line.getOptionValue("query"),username,password);
 		    	query.execute();
 			}
 

@@ -12,8 +12,17 @@ import org.neo4j.driver.v1.Session;
 
 public class RDFStore {
 	DataModel data;
+	String path;
+	String username;
+	String password;
 	
 	
+	public RDFStore(String optionValue, String username, String password) {
+		this.path = optionValue;
+		this.username = username;
+		this.password = password;
+	}
+
 	private DataModel getData(String path) throws FileNotFoundException, IOException {
 		if (data == null) {
 			data = new DataModel();
@@ -28,13 +37,12 @@ public class RDFStore {
 		return data;
 	}
 
-	public void load(String path) throws FileNotFoundException, IOException {
+	public void load() throws FileNotFoundException, IOException {
 		
-		Session session;
 		DataModel data = getData(path);
 
-		Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( "neo4j", "neo4j" ) );
-		session = driver.session();
+		Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( username, password ) );
+		Session session = driver.session();
 			
 		session.run("MATCH (n) DETACH DELETE n");
 		
