@@ -80,7 +80,6 @@ public class Query {
 		return result;
 	}
 
-
 	public void execute() {
 		Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( username, password ) );
 		Session session = driver.session();
