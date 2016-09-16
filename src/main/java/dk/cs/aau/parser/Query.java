@@ -6,14 +6,23 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.io.IOUtils;
+import org.neo4j.driver.v1.AuthTokens;
+import org.neo4j.driver.v1.Driver;
+import org.neo4j.driver.v1.GraphDatabase;
+import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.StatementResult;
 
 public class Query {
 	
 	String query = "";
+	String username;
+	String password;
 
 	
-	public Query(String path) throws IOException
+	public Query(String path, String username, String password) throws IOException
 	{
+		this.username = username;
+		this.password = password;
 		String semiSparql = "";
 		try(FileInputStream inputStream = new FileInputStream(path)) {
 		    semiSparql = IOUtils.toString(inputStream);
@@ -51,13 +60,11 @@ public class Query {
 		
 		for (String triplePattern : where.split(" \\.")) {
 			TriplePattern triple = new TriplePattern(triplePattern);
-			System.out.println(triple);
 			cypherQuery += "MATCH ("+triple.getSubject()+")"+"-["+triple.getProperty()+"]->("+triple.getObject()+") ";
 		}
 		cypherQuery += "RETURN "+select;
 		
-		System.out.println(cypherQuery);
-		return null;
+		return cypherQuery;
 	}
 
 	private String selectClauseFormatter(String select) {
@@ -75,6 +82,20 @@ public class Query {
 
 
 	public void execute() {
-		System.out.println(this.toString());
+		Driver driver = GraphDatabase.driver( "bolt://localhost", AuthTokens.basic( username, password ) );
+		Session session = driver.session();
+			
+		System.out.println("Executing query:");
+		System.out.println(query+"\n");
+		
+		StatementResult result = session.run(this.toString());
+		
+		System.out.println("Results:");
+		while (result.hasNext()) {
+			System.out.println(result.next().toString());
+		}
+		
+		session.close();
+		driver.close();
 	}
 }
